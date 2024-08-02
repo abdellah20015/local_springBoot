@@ -1,0 +1,62 @@
+username: postgres
+password: root
+
+logging:
+  level:
+    ROOT: INFO
+    org.hibernate.SQL: DEBUG
+    fr.codecake.airbnbcloneback: DEBUG
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: airbnb-clone-back
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+    url: jdbc:postgresql://localhost:5432/airbnb_clone
+    username: postgres
+    password: root
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: airbnb_clone
+  liquibase:
+    contexts: dev
+    change-log: classpath:db/changelog/master.xml
+    default-schema: airbnb_clone
+    enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+server:
+  port: 8080
+
+okta:
+  oauth2:
+    issuer: https://dev-gqswa5eahc5drk4q.us.auth0.com/
+    client-id: 1H6Zls5aVZLGwdNmRzAn31WaXNXn6BMV
+    client-secret: iJO1q6lq_Sh89k-Zc6BwNV_bEm6ZznUOKiq-xr2_t09OYa1yGGUt9vn6-OjfaiaY
+
+application:
+  auth0:
+    role-landlord-id: rol_nrZUJ3qkGLWRvkER
+
+# Comment out the Docker Compose section if exists
+# spring:
+#   docker:
+#     compose:
+#       file: compose.yaml
